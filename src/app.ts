@@ -4,14 +4,12 @@ import { authMiddleware } from './middlewares';
 import authRouter from './auth.router';
 import pool from './db';
 
-// Загружаем переменные окружения
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
 
-// Подключаем роутер аутентификации все роуты от туда с /auth/
 app.use('/auth', authRouter);
 
 app.get('/health', (req: Request, res: Response) => {

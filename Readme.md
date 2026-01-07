@@ -1,7 +1,9 @@
 # Backend сервер Express.js TypeScript PostgreSQL
 
 
-## 1. Установить зависимости: npm install
+## 1. Установить зависимости:
+
+### npm install
 
 ## 2. Установка PostgreSQL
 
@@ -13,7 +15,9 @@
 
 ### createdb tsserver_db
 
-### Создать таблицы psql tsserver_db -f init-db.sql
+### Создать таблицы:
+
+### psql tsserver_db -f init-db.sql
 
 ## 4. Настройка переменных окружения
 

@@ -1,18 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import './types';
+import { JwtPayload } from './types';
 
-// Загружаем переменные окружения
 dotenv.config();
-
-// Расширение типа Request для добавления поля user
-declare global {
-  namespace Express {
-    interface Request {
-      user?: any;
-    }
-  }
-}
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -23,7 +15,6 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
       return;
     }
 
-    // Формат: "Bearer <token>"
     const token = header.split(' ')[1];
 
     if (!token) {
@@ -31,13 +22,10 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
       return;
     }
 
-    // Проверка и декодирование токена
     const payload = jwt.verify(token, process.env.JWT_SECRET || 'secret');
 
-    // Добавляем данные пользователя в запрос
-    req.user = payload;
+    req.user = payload as JwtPayload;
 
-    // Передаем управление следующему обработчику
     next();
   } catch (error) {
     if (error instanceof jwt.JsonWebTokenError) {
